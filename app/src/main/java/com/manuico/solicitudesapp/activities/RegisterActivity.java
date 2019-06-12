@@ -46,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText tipoInput;
     private EditText motivoInput;
 
-    private Integer id = 2;
+    private Integer id = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -3,7 +3,7 @@ package com.manuico.solicitudesapp.models;
 public class Solicitud {
 
     private Integer id;
-    private Integer idUsuario;
+    private String idUsuario;
     private String correo;
     private String tipoSolicitud;
     private String motivo;
@@ -18,11 +18,11 @@ public class Solicitud {
         this.id = id;
     }
 
-    public Integer getIdUsuario() {
+    public String getIdUsuario() {
         return idUsuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
+    public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
     }
 

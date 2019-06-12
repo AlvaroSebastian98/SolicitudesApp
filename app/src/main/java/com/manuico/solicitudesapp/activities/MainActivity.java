@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final int REGISTER_FORM_REQUEST = 100;
 
-    private Integer id = 1;
+    private Integer id = 1uii;
 
 
     @Override
@@ -48,6 +48,53 @@ public class MainActivity extends AppCompatActivity {
     private void initialize() {
 
         ApiService service = ApiServiceGenerator.createService(ApiService.class);
+
+
+        //Código para mostrar SOLO las solicitudes de cada usuario
+
+        Call<List<Solicitud>> call = service.showOwnSolicitudes(id);
+
+        call.enqueue(new Callback<List<Solicitud>>() {
+            @Override
+            public void onResponse(Call<List<Solicitud>> call, Response<List<Solicitud>> response) {
+                try {
+
+                    int statusCode = response.code();
+                    Log.d(TAG, "HTTP status code: " + statusCode);
+
+                    if (response.isSuccessful()) {
+
+                        List<Solicitud> solicitudes = response.body();
+                        Log.d(TAG, "solicitudes: " + solicitudes);
+
+                        SolicitudesAdapter adapter = (SolicitudesAdapter) solicitudesList.getAdapter();
+                        adapter.setSolicitudes(solicitudes);
+                        adapter.notifyDataSetChanged();
+
+                    } else {
+                        Log.e(TAG, "onError: " + response.errorBody().string());
+                        throw new Exception("Error en el servicio");
+                    }
+
+                } catch (Throwable t) {
+                    try {
+                        Log.e(TAG, "onThrowable: " + t.toString(), t);
+                        Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                    }catch (Throwable x){}
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Solicitud>> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + t.toString());
+                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+            }
+
+        });
+
+        //Código para mostrar TODAS las solicitudes
+
+        /*ApiService service = ApiServiceGenerator.createService(ApiService.class);
 
         Call<List<Solicitud>> call = service.getSolicitudes();
 
@@ -87,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
 
-        });
+        });*/
     }
 
     public void showRegister(View view){

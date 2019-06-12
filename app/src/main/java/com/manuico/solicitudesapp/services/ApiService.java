@@ -29,16 +29,16 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("/solicitudes")
-    Call<ResponseMessage> createSolicitud(@Field("idUsuario") Integer id_usuario,
+    Call<ResponseMessage> createSolicitud(@Field("idUsuario") Integer idUsuario,
                                          @Field("correo") String correo,
-                                         @Field("tipoSolicitud") String tipo_solicitud,
+                                         @Field("tipoSolicitud") String tipoSolicitud,
                                          @Field("motivo") String motivo);
     @Multipart
     @POST("/solicitudes")
     Call<ResponseMessage> createSolicitudWithImage(
-            @Part("idUsuario") RequestBody id_usuario,
+            @Part("idUsuario") RequestBody idUusuario,
             @Part("correo") RequestBody correo,
-            @Part("tipoSolicitud") RequestBody tipo_solicitud,
+            @Part("tipoSolicitud") RequestBody tipoSolicitud,
             @Part("motivo") RequestBody motivo,
             @Part MultipartBody.Part imagen
     );
